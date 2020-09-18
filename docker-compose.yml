@@ -1,0 +1,44 @@
+version: '3'
+
+services: 
+  some-postgres:
+    image: postgres:9.5
+    container_name: postgresql
+    networks: 
+      - iroha-network
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: postgres
+    restart: always
+    user: root
+
+  iroha: 
+    build: ./build
+    container_name: iroha-container
+    ports:
+      - 50051:50051
+    volumes:
+      - blockstore:/tmp/block_store
+    networks:
+      - iroha-network
+    environment:
+      KEY: 'node0'
+      IROHA_POSTGRES_HOST: 'some-postgres'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'mysecretpassword'
+    depends_on: 
+      - some-postgres
+      
+
+volumes: 
+  blockstore:
+
+networks:
+  iroha-network:
