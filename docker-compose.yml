@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   some-postgres:
     image: postgres:9.5
     container_name: postgresql
-    networks: 
+    networks:
       - iroha-network
     ports:
       - 5432:5432
@@ -18,9 +18,9 @@ services:
     restart: always
     user: root
 
-  iroha: 
+  iroha:
     build: ./build
-    container_name: iroha-container
+    container_name: iroha
     ports:
       - 50051:50051
     volumes:
@@ -28,16 +28,15 @@ services:
     networks:
       - iroha-network
     environment:
-      KEY: 'node0'
-      IROHA_POSTGRES_HOST: 'some-postgres'
-      POSTGRES_PORT: '5432'
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'mysecretpassword'
-    depends_on: 
+      KEY: "node0"
+      IROHA_POSTGRES_HOST: "some-postgres"
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "mysecretpassword"
+    depends_on:
       - some-postgres
-      
 
-volumes: 
+volumes:
   blockstore:
 
 networks:
