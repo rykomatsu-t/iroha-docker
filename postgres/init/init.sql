@@ -10,6 +10,7 @@ create table employee (
   name varchar(200) not null,
   password varchar(200) not null,
   dep_id int references department(id),
+  asset_quantity int,
   status_code int,
   priv_hex varchar(200),
   pub_hex varchar(200)
@@ -41,7 +42,7 @@ insert into asset(name, status_code) values
   ('coin2020',1)
 ;
 
-insert into employee(name, password, dep_id, status_code, priv_hex, pub_hex) values
-  ('admin','password',1,1,'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70','313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910'),
-  ('test','password',1,1,'7e00405ece477bb6dd9b03a78eee4e708afc2f5bcdce399573a5958942f4a390','716fe505f69f18511a1b083915aa9ff73ef36e6688199f3959750db38b8f4bfc')
+insert into employee(name, password, dep_id, asset_quantity, status_code, priv_hex, pub_hexd) values
+  ('admin','password',1,123,1,'f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70','313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910'),
+  ('test','password',1,500,1,'7e00405ece477bb6dd9b03a78eee4e708afc2f5bcdce399573a5958942f4a390','716fe505f69f18511a1b083915aa9ff73ef36e6688199f3959750db38b8f4bfc')
 ;
